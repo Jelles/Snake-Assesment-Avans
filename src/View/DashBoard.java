@@ -1,7 +1,10 @@
 package View;
 
 import Model.DashBoardModel;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 public class DashBoard extends HBox {
 
@@ -9,5 +12,7 @@ public class DashBoard extends HBox {
 
     public DashBoard(DashBoardModel dashBoardModel) {
         this.dashBoardModel = dashBoardModel;
+        this.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+        this.setPrefSize(this.dashBoardModel.getWidth(), this.dashBoardModel.getHeight());
     }
 }

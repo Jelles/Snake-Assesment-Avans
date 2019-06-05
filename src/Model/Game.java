@@ -1,7 +1,5 @@
 package Model;
 
-import View.DashBoard;
-
 public class Game {
     private DashBoardModel dashBoardModel;
     private DrawModel drawModel;
