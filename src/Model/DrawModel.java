@@ -6,8 +6,10 @@ public class DrawModel {
     private final int rows = 15;
     private final int columns = 19;
     private Square[][] playField;
+    private Game game;
 
-    public DrawModel() {
+    public DrawModel(Game game) {
+        this.game = game;
         playField = new Square[rows][columns];
         playField = generatePlayField();
     }

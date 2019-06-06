@@ -17,8 +17,8 @@ public class Controller {
 
     public void viewGame() {
         Game game = new Game();
-        DashBoardModel dashBoardModel = new DashBoardModel();
-        DrawModel drawModel = new DrawModel();
+        DashBoardModel dashBoardModel = new DashBoardModel(game);
+        DrawModel drawModel = new DrawModel(game);
         game.setDrawModel(drawModel);
         game.setDashBoardModel(dashBoardModel);
         GameView gameView = new GameView(game);

@@ -3,8 +3,14 @@ package Model;
 public class Game {
     private DashBoardModel dashBoardModel;
     private DrawModel drawModel;
+    private Snake snake;
 
     public Game() {
+        snake = new Snake(5, 5);
+    }
+
+    public Snake getSnake() {
+        return this.snake;
     }
 
     /**
