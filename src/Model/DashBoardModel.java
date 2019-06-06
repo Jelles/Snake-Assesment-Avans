@@ -2,7 +2,7 @@ package Model;
 
 public class DashBoardModel {
     private final int width = 760;
-    private final int height = 60;
+    private final int height = 50;
 
     /**
      * Gets the width of the dashboard

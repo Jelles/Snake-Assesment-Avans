@@ -10,12 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class GameOverPane extends VBox {
+public class GameOverScene extends VBox {
     private Text gameOverText;
     private Text endTime;
     private Game game;
 
-    public GameOverPane(Game game) {
+    public GameOverScene(Game game) {
         this.game = game;
         this.setBackground(new Background(new BackgroundFill(Color.rgb(198, 0, 42), null, null)));
         this.setPrefSize(760, 600);

@@ -1,6 +1,6 @@
 package Controller;
 
-import View.MyScene;
+import View.GameScene;
 import javafx.application.Application;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        MyScene scene = new MyScene(new Pane(), 760, 660);
+        GameScene scene = new GameScene(new Pane(), 760, 650);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("PROG ASS Snake - Jelles Duin");

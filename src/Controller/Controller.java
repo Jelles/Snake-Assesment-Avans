@@ -3,14 +3,14 @@ package Controller;
 import Model.DashBoardModel;
 import Model.DrawModel;
 import Model.Game;
-import View.GameOverPane;
+import View.GameOverScene;
 import View.GameView;
-import View.MyScene;
+import View.GameScene;
 
 public class Controller {
-    private MyScene myScene;
+    private GameScene myScene;
 
-    public Controller(MyScene myScene) {
+    public Controller(GameScene myScene) {
         this.myScene = myScene;
         viewGame();
     }
@@ -27,7 +27,7 @@ public class Controller {
 
     public void viewEndGame() {
         // TODO: assigning right game
-        GameOverPane gameOverPane = new GameOverPane(new Game());
+        GameOverScene gameOverPane = new GameOverScene(new Game());
         myScene.setRootPane(gameOverPane);
     }
 }

@@ -1,11 +1,11 @@
 package Model;
 
-public class Spot {
+public class Square {
     private int xPos;
     private int yPos;
     private DrawModel drawModel;
 
-    public Spot(int xPos, int yPos, DrawModel drawModel) {
+    public Square(int xPos, int yPos, DrawModel drawModel) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.drawModel = drawModel;
