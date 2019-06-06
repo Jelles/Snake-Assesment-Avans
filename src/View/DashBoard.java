@@ -1,6 +1,7 @@
 package View;
 
 import Model.DashBoardModel;
+import Model.Game;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,9 +15,11 @@ public class DashBoard extends HBox {
     private Button exitButton;
     private final int BUTTON_WIDTH = 80;
     private final int BUTTON_HEIGHT = 30;
+    private Game game;
 
-    public DashBoard(DashBoardModel dashBoardModel) {
+    public DashBoard(DashBoardModel dashBoardModel, Game game) {
         this.dashBoardModel = dashBoardModel;
+        this.game = game;
         this.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         this.setPrefSize(this.dashBoardModel.getWidth(), this.dashBoardModel.getHeight());
         this.setAlignment(Pos.CENTER);
@@ -26,6 +29,10 @@ public class DashBoard extends HBox {
 
         pauseButton.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         exitButton.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        pauseButton.setOnAction(e -> {
+            game.draw
+        });
 
         BorderPane slidePadding = new BorderPane();
         BorderPane timerPadding = new BorderPane();

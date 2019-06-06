@@ -11,7 +11,7 @@ public class GameView extends BorderPane {
     public GameView(Game game) {
         this.game = game;
         drawPane = new DrawPane(this.game.getDrawModel(), game);
-        dashBoard = new DashBoard(this.game.getDashBoardModel());
+        dashBoard = new DashBoard(this.game.getDashBoardModel(), game);
         setCenter(drawPane);
         setBottom(dashBoard);
     }

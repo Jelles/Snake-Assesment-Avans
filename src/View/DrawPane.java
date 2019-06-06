@@ -40,14 +40,21 @@ public class DrawPane extends StackPane {
         this.getChildren().addAll(playFieldPanes, canvas);
         this.snake = game.getSnake();
         this.showPlayFieldView();
-
-        draw();
     }
 
-    private void draw() {
-        GraphicsContext g = this.canvas.getGraphicsContext2D();
+    public void draw() {
+        int x = 10;
+        while (true) {
+            GraphicsContext g = this.canvas.getGraphicsContext2D();
+            drawHead(g, snake.getxPos() + (x * 10), snake.getyPos());
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            x++;
+        }
 
-        drawHead(g, snake.getxPos(), snake.getyPos());
     }
 
     private void doMove() {
