@@ -24,7 +24,6 @@ public class Controller {
     }
 
     public void viewEndGame(Game game) {
-        // TODO: assigning right game
         GameOverScene gameOverPane = new GameOverScene(game);
         myScene.setRootPane(gameOverPane);
     }

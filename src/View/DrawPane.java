@@ -1,5 +1,6 @@
 package View;
 
+import Model.BodyPart;
 import Model.Game;
 import Model.Snake;
 import javafx.animation.KeyFrame;
@@ -34,6 +35,9 @@ public class DrawPane extends StackPane {
         GraphicsContext g = this.canvas.getGraphicsContext2D();
         g.clearRect(0, 0, 760, 600);
         drawHead(g, snake.getxPos(), snake.getyPos());
+        for (BodyPart bodyPart : snake.getBodyParts()) {
+            drawBodyPart(g, bodyPart.getxPos(), bodyPart.getyPos());
+        }
     }
 
     private void addBackground() {
@@ -76,6 +80,11 @@ public class DrawPane extends StackPane {
 
     private void drawHead(GraphicsContext g, int xPos, int yPos) {
         g.setFill(Color.RED);
+        g.fillOval(xPos * 40, yPos * 40, 40, 40);
+    }
+
+    private void drawBodyPart(GraphicsContext g, int xPos, int yPos) {
+        g.setFill(Color.ORANGE);
         g.fillOval(xPos * 40, yPos * 40, 40, 40);
     }
 }
