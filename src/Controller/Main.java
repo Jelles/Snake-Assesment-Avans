@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        MyScene scene = new MyScene(new Pane(), 760, 600);
+        MyScene scene = new MyScene(new Pane(), 760, 660);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("PROG ASS Snake - Jelles Duin");

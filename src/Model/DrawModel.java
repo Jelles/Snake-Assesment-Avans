@@ -34,7 +34,7 @@ public class DrawModel {
     }
 
     public int getColumns() {
-        return this.rows;
+        return this.columns;
     }
 
     public int getWidth() {

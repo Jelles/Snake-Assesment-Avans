@@ -12,7 +12,7 @@ public class DashBoard extends HBox {
 
     public DashBoard(DashBoardModel dashBoardModel) {
         this.dashBoardModel = dashBoardModel;
-        this.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+        this.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         this.setPrefSize(this.dashBoardModel.getWidth(), this.dashBoardModel.getHeight());
     }
 }
