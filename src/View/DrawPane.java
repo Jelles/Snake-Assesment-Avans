@@ -42,30 +42,30 @@ public class DrawPane extends StackPane {
 
     private SquareView[][] generatePlayFieldView() {
         SquareView[][] playFieldView = new SquareView[rows][columns];
-        boolean rowSwitch = false;
-        boolean colorSwitch = false;
+        boolean firstCheck = false;
+        boolean secondCheck = false;
         Color darkGray = Color.rgb(30, 30, 30);
         Color lightGray = Color.rgb(50, 50, 50);
         for (Square[] spots : playField) {
             for (Square spot : spots) {
                 SquareView spotView = new SquareView(spot);
-                if (rowSwitch) {
-                    if (colorSwitch) {
+                if (firstCheck) {
+                    if (secondCheck) {
                         spotView.setBackground(new Background(new BackgroundFill(darkGray, null, null)));
                     } else {
                         spotView.setBackground(new Background(new BackgroundFill(lightGray, null, null)));
                     }
                 } else {
-                    if (rowSwitch) {
+                    if (secondCheck) {
                         spotView.setBackground(new Background(new BackgroundFill(darkGray, null, null)));
                     } else {
                         spotView.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
                     }
                 }
-                colorSwitch ^= true;
+                secondCheck ^= true;
                 playFieldView[spot.getxPos()][spot.getyPos()] = spotView;
             }
-            rowSwitch ^= true;
+            firstCheck ^= true;
         }
         return playFieldView;
     }
