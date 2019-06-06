@@ -14,10 +14,6 @@ public class GameScene extends Scene {
         this.controller = controller;
     }
 
-    public Controller getController() {
-        return this.controller;
-    }
-
     public void setRootPane(Pane pane) {
         this.setRoot(pane);
     }

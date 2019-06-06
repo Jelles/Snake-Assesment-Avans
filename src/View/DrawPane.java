@@ -1,60 +1,69 @@
 package View;
 
-import Model.DrawModel;
 import Model.Game;
 import Model.Snake;
-import Model.Square;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class DrawPane extends StackPane {
-    private Square[][] playField;
-    private SquareView[][] playFieldView;
-    private DrawModel drawModel;
-    private int rows;
-    private int columns;
+    private final int rows = 15;
+    private final int columns = 19;
     private Canvas canvas;
-    private TilePane playFieldPanes;
+    private TilePane background;
     private Game game;
     private Snake snake;
 
-    public DrawPane(DrawModel drawModel, Game game) {
-        this.drawModel = drawModel;
+    public DrawPane(Game game) {
         this.game = game;
+        this.canvas = new Canvas(760, 600);
+        this.background = new TilePane();
         this.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
-        this.setPrefSize(this.drawModel.getWidth(), this.drawModel.getHeight());
-        this.rows = drawModel.getRows();
-        this.columns = drawModel.getColumns();
-        this.playField = drawModel.getPlayField();
-        this.playFieldView = generatePlayFieldView();
-        this.playFieldPanes = new TilePane();
-        this.canvas = new Canvas(drawModel.getWidth(), drawModel.getHeight());
-        this.getChildren().addAll(playFieldPanes, canvas);
+        this.setPrefSize(760, 600);
+        this.addBackground();
+        this.getChildren().addAll(background, canvas);
         this.snake = game.getSnake();
-        this.showPlayFieldView();
+        draw();
     }
 
     public void draw() {
-        int x = 10;
-        while (true) {
-            GraphicsContext g = this.canvas.getGraphicsContext2D();
-            drawHead(g, snake.getxPos() + (x * 10), snake.getyPos());
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            x++;
-        }
+        GraphicsContext g = this.canvas.getGraphicsContext2D();
+        g.clearRect(0, 0, 760, 600);
+        drawHead(g, snake.getxPos(), snake.getyPos());
+    }
 
+    private void addBackground() {
+        Pane[][] background = new Pane[rows][columns];
+        boolean firstCheck = false;
+        boolean secondCheck = false;
+        Color darkGray = Color.rgb(30, 30, 30);
+        Color lightGray = Color.rgb(50, 50, 50);
+        for (Pane[] backgroundPanes : background) {
+            for (Pane backgroundPane : backgroundPanes) {
+                backgroundPane = new Pane();
+                backgroundPane.setMinSize(40, 40);
+                if (firstCheck) {
+                    if (secondCheck) {
+                        backgroundPane.setBackground(new Background(new BackgroundFill(darkGray, null, null)));
+                    } else {
+                        backgroundPane.setBackground(new Background(new BackgroundFill(lightGray, null, null)));
+                    }
+                } else {
+                    if (secondCheck) {
+                        backgroundPane.setBackground(new Background(new BackgroundFill(darkGray, null, null)));
+                    } else {
+                        backgroundPane.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+                    }
+                }
+                this.background.getChildren().add(backgroundPane);
+                secondCheck ^= true;
+            }
+            firstCheck ^= true;
+        }
     }
 
     private void doMove() {
@@ -69,44 +78,4 @@ public class DrawPane extends StackPane {
         g.setFill(Color.RED);
         g.fillOval(xPos * 40, yPos * 40, 40, 40);
     }
-
-    private void showPlayFieldView() {
-        for (SquareView[] spotViews : playFieldView) {
-            for (SquareView spotView : spotViews) {
-                playFieldPanes.getChildren().add(spotView);
-            }
-        }
-    }
-
-    private SquareView[][] generatePlayFieldView() {
-        SquareView[][] playFieldView = new SquareView[rows][columns];
-        boolean firstCheck = false;
-        boolean secondCheck = false;
-        Color darkGray = Color.rgb(30, 30, 30);
-        Color lightGray = Color.rgb(50, 50, 50);
-        for (Square[] spots : playField) {
-            for (Square spot : spots) {
-                SquareView spotView = new SquareView(spot);
-                if (firstCheck) {
-                    if (secondCheck) {
-                        spotView.setBackground(new Background(new BackgroundFill(darkGray, null, null)));
-                    } else {
-                        spotView.setBackground(new Background(new BackgroundFill(lightGray, null, null)));
-                    }
-                } else {
-                    if (secondCheck) {
-                        spotView.setBackground(new Background(new BackgroundFill(darkGray, null, null)));
-                    } else {
-                        spotView.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-                    }
-                }
-                secondCheck ^= true;
-                playFieldView[spot.getxPos()][spot.getyPos()] = spotView;
-            }
-            firstCheck ^= true;
-        }
-        return playFieldView;
-    }
-
-
 }
