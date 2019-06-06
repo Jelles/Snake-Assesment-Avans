@@ -15,7 +15,7 @@ public class Game extends Task<Void> {
 
     public Game(Controller controller, GameScene gameScene) {
         this.gameScene = gameScene;
-        snake = new Snake(5, 5, controller);
+        snake = new Snake(5, 5, controller, this);
         pause = true;
         initButtons();
     }

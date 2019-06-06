@@ -10,8 +10,10 @@ public class Snake {
     private Direction direction;
     private ArrayList<BodyPart> bodyParts;
     private Controller controller;
+    private Game game;
 
-    public Snake(int xPos, int yPos, Controller controller) {
+    public Snake(int xPos, int yPos, Controller controller, Game game) {
+        this.game = game;
         this.controller = controller;
         this.direction = Direction.RIGHT;
         this.xPos = xPos;
@@ -27,22 +29,30 @@ public class Snake {
     }
 
     public void moveLeft() {
+        if (xPos == 0) {
+            controller.viewEndGame(game);
+        }
         this.xPos--;
     }
 
     public void moveRight() {
-        System.out.println(xPos);
         if (xPos == 18) {
-            controller.viewEndGame();
+            controller.viewEndGame(game);
         }
         this.xPos++;
     }
 
     public void moveUp() {
+        if (yPos == 0) {
+            controller.viewEndGame(game);
+        }
         this.yPos--;
     }
 
     public void moveDown() {
+        if (yPos == 14) {
+            controller.viewEndGame(game);
+        }
         this.yPos++;
     }
 
