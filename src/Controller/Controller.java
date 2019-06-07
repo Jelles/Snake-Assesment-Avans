@@ -27,4 +27,16 @@ public class Controller {
         GameOverScene gameOverPane = new GameOverScene(game);
         myScene.setRootPane(gameOverPane);
     }
+
+    public void startGame(Game game) {
+        game.start();
+    }
+
+    public void pauseGame(Game game) {
+        game.pause();
+    }
+
+    public void exitApplication() {
+        System.exit(0);
+    }
 }

@@ -54,12 +54,20 @@ public class Snake {
         }
     }
 
+    private void bodyCollapse() {
+        for (BodyPart bodyPart : bodyParts) {
+            if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos()) {
+                controller.viewEndGame(game);
+            }
+        }
+    }
+
 
     public void moveLeft() {
         if (xPos == 0) {
             controller.viewEndGame(game);
         }
-
+        bodyCollapse();
         moveBodyParts();
         this.xPos--;
     }
@@ -68,6 +76,7 @@ public class Snake {
         if (xPos == 18) {
             controller.viewEndGame(game);
         }
+        bodyCollapse();
         moveBodyParts();
         this.xPos++;
     }
@@ -76,6 +85,7 @@ public class Snake {
         if (yPos == 0) {
             controller.viewEndGame(game);
         }
+        bodyCollapse();
         moveBodyParts();
         this.yPos--;
     }
@@ -84,6 +94,7 @@ public class Snake {
         if (yPos == 14) {
             controller.viewEndGame(game);
         }
+        bodyCollapse();
         moveBodyParts();
         this.yPos++;
     }
