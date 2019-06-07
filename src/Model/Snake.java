@@ -10,10 +10,8 @@ public class Snake {
     private Direction direction;
     private ArrayList<BodyPart> bodyParts;
     private Controller controller;
-    private Game game;
 
-    public Snake(int xPos, int yPos, Controller controller, Game game) {
-        this.game = game;
+    public Snake(int xPos, int yPos, Controller controller) {
         this.controller = controller;
         this.direction = Direction.RIGHT;
         this.xPos = xPos;
@@ -38,65 +36,16 @@ public class Snake {
         return this.yPos;
     }
 
+    public void setxPos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos = yPos;
+    }
+
     public ArrayList<BodyPart> getBodyParts() {
         return this.bodyParts;
-    }
-
-    private void moveBodyParts() {
-        for (int i = bodyParts.size() - 1; i >= 0; i--) {
-            if (i == 0) {
-                bodyParts.get(i).setxPos(this.xPos);
-                bodyParts.get(i).setyPos(this.yPos);
-                return;
-            }
-            bodyParts.get(i).setyPos(bodyParts.get(i - 1).getyPos());
-            bodyParts.get(i).setxPos(bodyParts.get(i - 1).getxPos());
-        }
-    }
-
-    private void bodyCollapse() {
-        for (BodyPart bodyPart : bodyParts) {
-            if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos()) {
-                controller.viewEndGame(game);
-            }
-        }
-    }
-
-
-    public void moveLeft() {
-        if (xPos == 0) {
-            controller.viewEndGame(game);
-        }
-        bodyCollapse();
-        moveBodyParts();
-        this.xPos--;
-    }
-
-    public void moveRight() {
-        if (xPos == 18) {
-            controller.viewEndGame(game);
-        }
-        bodyCollapse();
-        moveBodyParts();
-        this.xPos++;
-    }
-
-    public void moveUp() {
-        if (yPos == 0) {
-            controller.viewEndGame(game);
-        }
-        bodyCollapse();
-        moveBodyParts();
-        this.yPos--;
-    }
-
-    public void moveDown() {
-        if (yPos == 14) {
-            controller.viewEndGame(game);
-        }
-        bodyCollapse();
-        moveBodyParts();
-        this.yPos++;
     }
 
     public Direction getDirection() {

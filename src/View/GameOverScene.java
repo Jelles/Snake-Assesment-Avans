@@ -1,34 +1,36 @@
 package View;
 
-import Model.Game;
+import Controller.Controller;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class GameOverScene extends VBox {
+public class GameOverScene extends Scene {
     private Text gameOverText;
     private Text endTime;
-    private Game game;
+    private VBox rootPane;
+    private Controller controller;
 
-    public GameOverScene(Game game) {
-        this.game = game;
-        this.setBackground(new Background(new BackgroundFill(Color.rgb(198, 0, 42), null, null)));
-        this.setPrefSize(760, 600);
-        this.gameOverText = new Text("Game Over");
-        this.gameOverText.setFont(Font.font("Verdana", 40));
-        this.endTime = new Text("00:30.720");
-        this.endTime.setFont(Font.font("Verdana", 44));
-        this.endTime.setFill(Color.WHITE);
+    public GameOverScene(Controller controller) {
+        super(new Pane(), 760, 650);
+        this.controller = controller;
+        rootPane = new VBox();
+        rootPane.setBackground(new Background(new BackgroundFill(Color.rgb(198, 0, 42), null, null)));
+        rootPane.setPrefSize(760, 650);
+        gameOverText = new Text("Game Over");
+        gameOverText.setFont(Font.font("Verdana", 40));
+        endTime = new Text("00:30.720");
+        endTime.setFont(Font.font("Verdana", 44));
+        endTime.setFill(Color.WHITE);
         BorderPane gameOverPaddingPane = new BorderPane();
         BorderPane endTimePaddingPane = new BorderPane();
         gameOverPaddingPane.setCenter(gameOverText);
         endTimePaddingPane.setCenter(endTime);
-        this.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(gameOverPaddingPane, endTimePaddingPane);
+        rootPane.setAlignment(Pos.CENTER);
+        rootPane.getChildren().addAll(gameOverPaddingPane, endTimePaddingPane);
+        setRoot(rootPane);
     }
 }

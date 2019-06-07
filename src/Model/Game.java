@@ -1,85 +1,49 @@
 package Model;
 
 import Controller.Controller;
-import View.DrawPane;
-import View.GameScene;
 import javafx.concurrent.Task;
-import javafx.scene.input.KeyCode;
 
-public class Game extends Task<Void> {
-    private DashBoardModel dashBoardModel;
+public class Game implements Runnable {
     private Snake snake;
     private boolean pause;
-    private DrawPane drawPane;
-    private GameScene gameScene;
+    private Controller controller;
 
-    public Game(Controller controller, GameScene gameScene) {
-        this.gameScene = gameScene;
-        snake = new Snake(15, 10, controller, this);
+    public Game(Controller controller) {
+        this.controller = controller;
+        snake = new Snake(15, 10, controller);
         pause = true;
-        initButtons();
     }
 
-    private void initButtons() {
-        gameScene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.A) {
-                if (snake.getDirection() == Direction.RIGHT) {
-                    return;
-                }
-                snake.setDirection(Direction.LEFT);
-                System.out.println(snake.getDirection());
-            }
-            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) {
-                if (snake.getDirection() == Direction.LEFT) {
-                    return;
-                }
-                snake.setDirection(Direction.RIGHT);
-                System.out.println(snake.getDirection());
-            }
-            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) {
-                if (snake.getDirection() == Direction.DOWN) {
-                    return;
-                }
-                snake.setDirection(Direction.UP);
-                System.out.println(snake.getDirection());
-            }
-            if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) {
-                if (snake.getDirection() == Direction.UP) {
-                    return;
-                }
-                snake.setDirection(Direction.DOWN);
-                System.out.println(snake.getDirection());
-            }
-        });
-    }
 
     @Override
-    protected Void call() throws Exception {
-        while (true) {
-            Thread.sleep(100);
-            while (!pause) {
-                switch (snake.getDirection()) {
-                    case UP:
-                        this.moveUp();
-                        break;
-                    case DOWN:
-                        this.moveDown();
-                        break;
-                    case LEFT:
-                        this.moveLeft();
-                        break;
-                    case RIGHT:
-                        this.moveRight();
-                        break;
-                    default:
-                        this.moveRight();
-                        break;
-                }
-                drawPane.draw();
-                Thread.sleep(100);
+    public void run() {
+        while (!pause) {
+            switch (snake.getDirection()) {
+                case UP:
+                    this.moveUp();
+                    break;
+                case DOWN:
+                    this.moveDown();
+                    break;
+                case LEFT:
+                    this.moveLeft();
+                    break;
+                case RIGHT:
+                    this.moveRight();
+                    break;
+                default:
+                    this.moveRight();
+                    break;
+            }
+            controller.draw();
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
+
 
     public void pause() {
         this.pause = true;
@@ -94,41 +58,23 @@ public class Game extends Task<Void> {
     }
 
     public void moveLeft() {
-        snake.moveLeft();
+        controller.snakeMoveLeft();
     }
 
     public void moveUp() {
-        snake.moveUp();
+        controller.snakeMoveUp();
     }
 
     public void moveRight() {
-        snake.moveRight();
+        controller.snakeMoveRight();
     }
 
     public void moveDown() {
-        snake.moveDown();
+        controller.snakeMoveDown();
     }
 
-    /**
-     * Gets the dashboard model
-     *
-     * @return dashBoardModel DashBoardModel
-     */
-    public DashBoardModel getDashBoardModel() {
-        return this.dashBoardModel;
-    }
-
-    /**
-     * Sets the DashBoardModel to the given DashBoardModel
-     *
-     * @param dashBoardModel DashBoardModel
-     */
-    public void setDashBoardModel(DashBoardModel dashBoardModel) {
-        this.dashBoardModel = dashBoardModel;
-    }
-
-    public void setDrawPane(DrawPane drawPane) {
-        this.drawPane = drawPane;
+    public boolean isPause() {
+        return this.pause;
     }
 }
 
