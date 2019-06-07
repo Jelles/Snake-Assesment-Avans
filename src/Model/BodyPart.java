@@ -3,10 +3,12 @@ package Model;
 public class BodyPart {
     private int xPos;
     private int yPos;
+    private Direction direction;
 
-    public BodyPart(int xPos, int yPos) {
+    public BodyPart(int xPos, int yPos, Direction direction) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.direction = direction;
     }
 
     public int getxPos() {
@@ -23,5 +25,13 @@ public class BodyPart {
 
     public void setyPos(int yPos) {
         this.yPos = yPos;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public Direction getDirection() {
+        return this.direction;
     }
 }

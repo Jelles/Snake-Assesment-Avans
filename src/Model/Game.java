@@ -10,7 +10,7 @@ public class Game implements Runnable {
 
     public Game(Controller controller) {
         this.controller = controller;
-        snake = new Snake(15, 10, controller);
+        snake = new Snake(15, 10, 4, controller);
         pause = true;
     }
 
@@ -31,13 +31,10 @@ public class Game implements Runnable {
                 case RIGHT:
                     this.moveRight();
                     break;
-                default:
-                    this.moveRight();
-                    break;
             }
             controller.draw();
             try {
-                Thread.sleep(200);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

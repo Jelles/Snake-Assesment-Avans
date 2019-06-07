@@ -7,23 +7,25 @@ import java.util.ArrayList;
 public class Snake {
     private int xPos;
     private int yPos;
+    private int startLength;
     private Direction direction;
     private ArrayList<BodyPart> bodyParts;
     private Controller controller;
 
-    public Snake(int xPos, int yPos, Controller controller) {
+    public Snake(int xPos, int yPos, int startLength, Controller controller) {
         this.controller = controller;
         this.direction = Direction.RIGHT;
+        this.startLength = startLength;
         this.xPos = xPos;
         this.yPos = yPos;
         this.bodyParts = new ArrayList<BodyPart>();
-        makeStartBody(xPos, yPos);
+        makeStartBody();
     }
 
-    private void makeStartBody(int xPos, int yPos) {
+    private void makeStartBody() {
         int bodyPartxPos = xPos;
-        for (int i = 0; i < 10; i++) {
-            bodyParts.add(new BodyPart(bodyPartxPos - 1, yPos));
+        for (int i = 0; i < startLength; i++) {
+            bodyParts.add(new BodyPart(bodyPartxPos - 1, yPos, direction));
             bodyPartxPos--;
         }
     }
@@ -54,5 +56,9 @@ public class Snake {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void addBodyPart(BodyPart bodyPart) {
+        this.bodyParts.add(bodyPart);
     }
 }

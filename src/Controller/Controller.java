@@ -16,8 +16,10 @@ public class Controller {
     private GameScene gameScene;
     private Game game;
     private Stage stage;
+    private Thread growThread;
 
     public Controller(Stage stage) {
+        growSnake();
         this.stage = stage;
         game = new Game(this);
         gameScene = new GameScene(new Pane(), 760, 650, this);
@@ -25,14 +27,10 @@ public class Controller {
         stage.setResizable(false);
         stage.setTitle("PROG ASS Snake - Jelles Duin");
         stage.show();
-        viewGame();
-    }
-
-    public void viewGame() {
-        new Thread(game).start();
     }
 
     public void viewEndGame() {
+        game.pause();
         GameOverScene gameOverPane = new GameOverScene(this);
         Platform.runLater(new Runnable() {
             @Override
@@ -46,6 +44,7 @@ public class Controller {
     public void startGame() {
         game.start();
         new Thread(game).start();
+        new Thread(growSnake()).start();
     }
 
     public void pauseGame() {
@@ -60,19 +59,49 @@ public class Controller {
         return this.game;
     }
 
+    public Runnable growSnake() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                while (!game.isPause()) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    ArrayList<BodyPart> bodyParts = game.getSnake().getBodyParts();
+                    Snake snake = game.getSnake();
+                    int xPos = bodyParts.get(bodyParts.size() - 1).getxPos();
+                    int yPos = bodyParts.get(bodyParts.size() - 1).getyPos();
+                    switch (snake.getDirection()) {
+                        case UP:
+                            yPos--;
+                        case LEFT:
+                            xPos--;
+                        case RIGHT:
+                            xPos++;
+                        case DOWN:
+                            yPos++;
+                    }
+                    BodyPart bodyPart = new BodyPart(xPos, yPos, snake.getDirection());
+                    snake.addBodyPart(bodyPart);
+                }
+            }
+        };
+    }
+
     private void moveBodyParts() {
         ArrayList<BodyPart> bodyParts = game.getSnake().getBodyParts();
         for (int i = bodyParts.size() - 1; i >= 0; i--) {
             if (i == 0) {
-                int xPos = game.getSnake().getxPos();
-                int yPos = game.getSnake().getxPos();
-
                 bodyParts.get(i).setxPos(game.getSnake().getxPos());
-                bodyParts.get(i).setyPos(game.getSnake().getxPos());
-                return;
+                bodyParts.get(i).setyPos(game.getSnake().getyPos());
+                bodyParts.get(i).setDirection(game.getSnake().getDirection());
+            } else {
+                bodyParts.get(i).setyPos(bodyParts.get(i - 1).getyPos());
+                bodyParts.get(i).setxPos(bodyParts.get(i - 1).getxPos());
+                bodyParts.get(i).setDirection(bodyParts.get(i - 1).getDirection());
             }
-            bodyParts.get(i).setyPos(bodyParts.get(i - 1).getyPos());
-            bodyParts.get(i).setxPos(bodyParts.get(i - 1).getxPos());
         }
     }
 
@@ -85,11 +114,25 @@ public class Controller {
         }
     }
 
-    public void snakeMoveLeft() {
+    private void wallCollapse() {
         Snake snake = game.getSnake();
         if (snake.getxPos() == 0) {
             viewEndGame();
         }
+        if (snake.getyPos() == 14) {
+            viewEndGame();
+        }
+        if (snake.getxPos() == 18) {
+            viewEndGame();
+        }
+        if (snake.getyPos() == 0) {
+            viewEndGame();
+        }
+    }
+
+    public void snakeMoveLeft() {
+        Snake snake = game.getSnake();
+        wallCollapse();
         bodyCollapse();
         moveBodyParts();
         snake.setxPos(snake.getxPos() - 1);
@@ -97,9 +140,7 @@ public class Controller {
 
     public void snakeMoveRight() {
         Snake snake = game.getSnake();
-        if (snake.getxPos() == 18) {
-            viewEndGame();
-        }
+        wallCollapse();
         bodyCollapse();
         moveBodyParts();
         snake.setxPos(snake.getxPos() + 1);
@@ -107,9 +148,7 @@ public class Controller {
 
     public void snakeMoveUp() {
         Snake snake = game.getSnake();
-        if (snake.getyPos() == 0) {
-            viewEndGame();
-        }
+        wallCollapse();
         bodyCollapse();
         moveBodyParts();
         snake.setyPos(snake.getyPos() - 1);
@@ -117,9 +156,7 @@ public class Controller {
 
     public void snakeMoveDown() {
         Snake snake = game.getSnake();
-        if (snake.getyPos() == 14) {
-            viewEndGame();
-        }
+        wallCollapse();
         bodyCollapse();
         moveBodyParts();
         snake.setyPos(snake.getyPos() + 1);
