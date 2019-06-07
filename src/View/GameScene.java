@@ -1,6 +1,8 @@
 package View;
 
 import Controller.Controller;
+import Model.Direction;
+import Model.Snake;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -31,10 +33,15 @@ public class GameScene extends Scene {
 
     private void initButtons() {
         this.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.A) controller.snakeDirectionLeft();
-            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) controller.snakeDirectionRight();
-            if (e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) controller.snakeDirectionUp();
-            if (e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) controller.snakeDirectionDown();
+            Snake snake = controller.getGame().getSnake();
+            if ((e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.A) && snake.getDirection() != Direction.RIGHT)
+                snake.setDirection(Direction.LEFT);
+            if ((e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) && snake.getDirection() != Direction.LEFT)
+                snake.setDirection(Direction.RIGHT);
+            if ((e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) && snake.getDirection() != Direction.DOWN)
+                snake.setDirection(Direction.UP);
+            if ((e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) && snake.getDirection() != Direction.UP)
+                snake.setDirection(Direction.DOWN);
         });
     }
 }

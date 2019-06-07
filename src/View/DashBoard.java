@@ -2,7 +2,9 @@ package View;
 
 import Controller.Controller;
 import Model.Game;
-import Model.GameTimer;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -27,6 +29,7 @@ public class DashBoard extends HBox {
     public DashBoard(Controller controller) {
         this.controller = controller;
         this.game = game;
+
         this.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         this.setPrefSize(760, 50);
         this.setAlignment(Pos.CENTER);
@@ -34,9 +37,6 @@ public class DashBoard extends HBox {
         buildButtons();
         BuildLabel();
         buildSlider();
-
-        GameTimer gameTimer = new GameTimer(this.game, playTimeLabel);
-        new Thread(gameTimer).start();
 
         BorderPane slidePadding = new BorderPane();
         BorderPane timerPadding = new BorderPane();
@@ -83,6 +83,7 @@ public class DashBoard extends HBox {
             if (pauseButton.isSelected()) {
                 pauseButton.setText("Pause");
                 controller.startGame();
+                speedSlider.valueProperty().bind(controller.getGame().slideValueProperty());
             } else {
                 pauseButton.setText("Start");
                 controller.pauseGame();
@@ -92,13 +93,13 @@ public class DashBoard extends HBox {
 
     private void BuildLabel() {
         playTimeLabel = new Label();
-        playTimeLabel.setText("00:00.000");
+        playTimeLabel.textProperty().bindBidirectional(controller.getGame().getDashBoardTimer().getTimerTextProperty());
         playTimeLabel.setFont(Font.font("Verdana", 20));
         playTimeLabel.setPadding(new Insets(8));
     }
 
     private void buildSlider() {
-        speedSlider = new Slider(1, 12, 5);
+        speedSlider = new Slider(1, 12, 1);
         speedSlider.setPrefSize(190, 40);
         speedSlider.setPadding(new Insets(0, 0, 20, 10));
         speedSlider.setShowTickLabels(true);

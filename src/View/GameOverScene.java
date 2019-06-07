@@ -22,7 +22,7 @@ public class GameOverScene extends Scene {
         rootPane.setPrefSize(760, 650);
         gameOverText = new Text("Game Over");
         gameOverText.setFont(Font.font("Verdana", 40));
-        endTime = new Text("00:30.720");
+        endTime = new Text(controller.getGame().getDashBoardTimer().getTimeText());
         endTime.setFont(Font.font("Verdana", 44));
         endTime.setFill(Color.WHITE);
         BorderPane gameOverPaddingPane = new BorderPane();

@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.BodyPart;
-import Model.Direction;
 import Model.Game;
 import Model.Snake;
 import View.GameOverScene;
@@ -16,7 +15,6 @@ public class Controller {
     private GameScene gameScene;
     private Game game;
     private Stage stage;
-    private Thread growThread;
 
     public Controller(Stage stage) {
         growSnake();
@@ -31,6 +29,7 @@ public class Controller {
 
     public void viewEndGame() {
         game.pause();
+        game.getDashBoardTimer().stop();
         GameOverScene gameOverPane = new GameOverScene(this);
         Platform.runLater(new Runnable() {
             @Override
@@ -43,12 +42,14 @@ public class Controller {
 
     public void startGame() {
         game.start();
+        game.getDashBoardTimer().start();
         new Thread(game).start();
         new Thread(growSnake()).start();
     }
 
     public void pauseGame() {
         game.pause();
+        game.getDashBoardTimer().pause();
     }
 
     public void exitApplication() {
@@ -90,105 +91,6 @@ public class Controller {
         };
     }
 
-    private void moveBodyParts() {
-        ArrayList<BodyPart> bodyParts = game.getSnake().getBodyParts();
-        for (int i = bodyParts.size() - 1; i >= 0; i--) {
-            if (i == 0) {
-                bodyParts.get(i).setxPos(game.getSnake().getxPos());
-                bodyParts.get(i).setyPos(game.getSnake().getyPos());
-                bodyParts.get(i).setDirection(game.getSnake().getDirection());
-            } else {
-                bodyParts.get(i).setyPos(bodyParts.get(i - 1).getyPos());
-                bodyParts.get(i).setxPos(bodyParts.get(i - 1).getxPos());
-                bodyParts.get(i).setDirection(bodyParts.get(i - 1).getDirection());
-            }
-        }
-    }
-
-    private void bodyCollapse() {
-        ArrayList<BodyPart> bodyParts = game.getSnake().getBodyParts();
-        for (BodyPart bodyPart : bodyParts) {
-            if (game.getSnake().getxPos() == bodyPart.getxPos() && game.getSnake().getyPos() == bodyPart.getyPos()) {
-                viewEndGame();
-            }
-        }
-    }
-
-    private void wallCollapse() {
-        Snake snake = game.getSnake();
-        if (snake.getxPos() == 0) {
-            viewEndGame();
-        }
-        if (snake.getyPos() == 14) {
-            viewEndGame();
-        }
-        if (snake.getxPos() == 18) {
-            viewEndGame();
-        }
-        if (snake.getyPos() == 0) {
-            viewEndGame();
-        }
-    }
-
-    public void snakeMoveLeft() {
-        Snake snake = game.getSnake();
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
-        snake.setxPos(snake.getxPos() - 1);
-    }
-
-    public void snakeMoveRight() {
-        Snake snake = game.getSnake();
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
-        snake.setxPos(snake.getxPos() + 1);
-    }
-
-    public void snakeMoveUp() {
-        Snake snake = game.getSnake();
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
-        snake.setyPos(snake.getyPos() - 1);
-    }
-
-    public void snakeMoveDown() {
-        Snake snake = game.getSnake();
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
-        snake.setyPos(snake.getyPos() + 1);
-    }
-
-    public void snakeDirectionUp() {
-        if (game.getSnake().getDirection() == Direction.DOWN) {
-            return;
-        }
-        game.getSnake().setDirection(Direction.UP);
-    }
-
-    public void snakeDirectionDown() {
-        if (game.getSnake().getDirection() == Direction.UP) {
-            return;
-        }
-        game.getSnake().setDirection(Direction.DOWN);
-    }
-
-    public void snakeDirectionLeft() {
-        if (game.getSnake().getDirection() == Direction.RIGHT) {
-            return;
-        }
-        game.getSnake().setDirection(Direction.LEFT);
-    }
-
-    public void snakeDirectionRight() {
-        if (game.getSnake().getDirection() == Direction.LEFT) {
-            return;
-        }
-        game.getSnake().setDirection(Direction.RIGHT);
-    }
 
     public void draw() {
         gameScene.draw();

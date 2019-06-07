@@ -61,4 +61,56 @@ public class Snake {
     public void addBodyPart(BodyPart bodyPart) {
         this.bodyParts.add(bodyPart);
     }
+
+    private void wallCollapse() {
+        if (yPos == 15 || xPos == -1) controller.viewEndGame();
+        if (xPos == 19 || yPos == -1) controller.viewEndGame();
+    }
+
+    private void bodyCollapse() {
+        for (BodyPart bodyPart : bodyParts)
+            if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos()) controller.viewEndGame();
+    }
+
+    private void moveBodyParts() {
+        for (int i = bodyParts.size() - 1; i >= 0; i--) {
+            if (i == 0) {
+                bodyParts.get(i).setxPos(xPos);
+                bodyParts.get(i).setyPos(yPos);
+                bodyParts.get(i).setDirection(direction);
+            } else {
+                bodyParts.get(i).setyPos(bodyParts.get(i - 1).getyPos());
+                bodyParts.get(i).setxPos(bodyParts.get(i - 1).getxPos());
+                bodyParts.get(i).setDirection(bodyParts.get(i - 1).getDirection());
+            }
+        }
+    }
+
+    public void moveLeft() {
+        wallCollapse();
+        bodyCollapse();
+        moveBodyParts();
+        xPos--;
+    }
+
+    public void moveRight() {
+        wallCollapse();
+        bodyCollapse();
+        moveBodyParts();
+        xPos++;
+    }
+
+    public void moveUp() {
+        wallCollapse();
+        bodyCollapse();
+        moveBodyParts();
+        yPos--;
+    }
+
+    public void moveDown() {
+        wallCollapse();
+        bodyCollapse();
+        moveBodyParts();
+        yPos++;
+    }
 }
