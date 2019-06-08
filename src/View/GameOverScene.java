@@ -12,11 +12,9 @@ public class GameOverScene extends Scene {
     private Text gameOverText;
     private Text endTime;
     private VBox rootPane;
-    private Controller controller;
 
     public GameOverScene(Controller controller) {
         super(new Pane(), 760, 650);
-        this.controller = controller;
         rootPane = new VBox();
         rootPane.setBackground(new Background(new BackgroundFill(Color.rgb(198, 0, 42), null, null)));
         rootPane.setPrefSize(760, 650);

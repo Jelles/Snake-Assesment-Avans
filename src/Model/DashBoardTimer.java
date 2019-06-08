@@ -19,7 +19,11 @@ public class DashBoardTimer {
         time = new Timeline();
     }
 
+    /**
+     * Start the timer
+     */
     public void start() {
+        time.getKeyFrames().clear();
         KeyFrame frame = new KeyFrame(Duration.millis(1), event -> {
             milliseconds++;
             if (milliseconds > 1000) {
@@ -58,10 +62,16 @@ public class DashBoardTimer {
         return timerText;
     }
 
+    /**
+     * Pauses the timer
+     */
     public void pause() {
         time.pause();
     }
 
+    /**
+     * Stops the timer
+     */
     public void stop() {
         time.stop();
     }

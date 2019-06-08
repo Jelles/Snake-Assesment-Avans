@@ -30,7 +30,9 @@ public class GameScene extends Scene {
         drawPane.draw();
     }
 
-
+    /**
+     * Sets the keypress events to move the snake around
+     */
     private void initButtons() {
         this.setOnKeyPressed(e -> {
             Snake snake = controller.getGame().getSnake();

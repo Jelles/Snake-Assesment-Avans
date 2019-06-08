@@ -22,6 +22,9 @@ public class Snake {
         makeStartBody();
     }
 
+    /**
+     * Generates the start state of the snake body
+     */
     private void makeStartBody() {
         int bodyPartxPos = xPos;
         for (int i = 0; i < startLength; i++) {
@@ -38,14 +41,6 @@ public class Snake {
         return this.yPos;
     }
 
-    public void setxPos(int xPos) {
-        this.xPos = xPos;
-    }
-
-    public void setyPos(int yPos) {
-        this.yPos = yPos;
-    }
-
     public ArrayList<BodyPart> getBodyParts() {
         return this.bodyParts;
     }
@@ -58,20 +53,32 @@ public class Snake {
         this.direction = direction;
     }
 
-    public void addBodyPart(BodyPart bodyPart) {
-        this.bodyParts.add(bodyPart);
-    }
-
+    /**
+     * Checks if the snake hit the wall
+     */
     private void wallCollapse() {
-        if (yPos == 15 || xPos == -1) controller.viewEndGame();
-        if (xPos == 19 || yPos == -1) controller.viewEndGame();
+        if (yPos == 15 || xPos == -1 || xPos == 19 || yPos == -1) controller.viewEndGame();
     }
 
+    /**
+     * Checks if the snake hit itself
+     */
     private void bodyCollapse() {
         for (BodyPart bodyPart : bodyParts)
             if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos()) controller.viewEndGame();
     }
 
+    /**
+     * Checks if an obstacle (Spot) is hit and runs the action for that obstacle (Spot)
+     */
+    private void obstacleCollapse() {
+        for (Spot obstacle : controller.getGame().getObstacles())
+            if (xPos == obstacle.getxPos() && yPos == obstacle.getyPos()) obstacle.action();
+    }
+
+    /**
+     * Moves all bodyparts to the next position
+     */
     private void moveBodyParts() {
         for (int i = bodyParts.size() - 1; i >= 0; i--) {
             if (i == 0) {
@@ -86,31 +93,57 @@ public class Snake {
         }
     }
 
-    public void moveLeft() {
+    /**
+     * Adds a bodypart to the snake on the right position
+     */
+    public void grow() {
+        int xPos = bodyParts.get(bodyParts.size() - 1).getxPos();
+        int yPos = bodyParts.get(bodyParts.size() - 1).getyPos();
+        switch (direction) {
+            case UP:
+                yPos--;
+            case LEFT:
+                xPos--;
+            case RIGHT:
+                xPos++;
+            case DOWN:
+                yPos++;
+        }
+        BodyPart bodyPart = new BodyPart(xPos, yPos, direction);
+        bodyParts.add(bodyPart);
+    }
+
+    /**
+     * Checks all the collapses and moves after those collapse checks
+     */
+    private void moveChecks() {
         wallCollapse();
         bodyCollapse();
+        obstacleCollapse();
         moveBodyParts();
+    }
+
+    public void moveLeft() {
+        moveChecks();
         xPos--;
     }
 
     public void moveRight() {
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
+        moveChecks();
         xPos++;
     }
 
     public void moveUp() {
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
+        moveChecks();
         yPos--;
     }
 
     public void moveDown() {
-        wallCollapse();
-        bodyCollapse();
-        moveBodyParts();
+        moveChecks();
         yPos++;
+    }
+
+    public void removeBodyPart(int i) {
+        bodyParts.remove(i);
     }
 }

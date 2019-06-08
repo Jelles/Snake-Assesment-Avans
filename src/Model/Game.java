@@ -5,6 +5,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game implements Runnable {
     private Snake snake;
@@ -27,8 +28,45 @@ public class Game implements Runnable {
         delay = 650;
         delayCounter = 0;
         slideCounter = 0;
+        addRandomObstacle();
     }
 
+    /**
+     * Adds a random obstacle (Spot) on the canvas
+     */
+    public void addRandomObstacle() {
+        Random rnd = new Random();
+        int xPos = rnd.nextInt(19);
+        int yPos = rnd.nextInt(15);
+        Marker marker = Marker.randomMarker();
+        if (isPossiblePosition(xPos, yPos)) obstacles.add(new Spot(xPos, yPos, marker, controller));
+        else addRandomObstacle();
+    }
+
+    /**
+     * Checks if the given position has a snake, bodypart or an object
+     *
+     * @param xPos
+     * @param yPos
+     *
+     * @return
+     */
+    private boolean isPossiblePosition(int xPos, int yPos) {
+        if (xPos == snake.getxPos() && yPos == snake.getyPos()) return false;
+        for (Spot obstacle : obstacles)
+            if (xPos == obstacle.getxPos() && yPos == obstacle.getyPos()) return false;
+        for (BodyPart bodyPart : snake.getBodyParts())
+            if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos()) return false;
+        return true;
+    }
+
+    public ArrayList<Spot> getObstacles() {
+        return this.obstacles;
+    }
+
+    /**
+     * Main game loop
+     */
     @Override
     public void run() {
         while (!pause) {
@@ -72,10 +110,16 @@ public class Game implements Runnable {
         return slideValue;
     }
 
+    /**
+     * Pauses the game
+     */
     public void pause() {
         this.pause = true;
     }
 
+    /**
+     * Starts the game
+     */
     public void start() {
         this.pause = false;
     }
@@ -86,6 +130,10 @@ public class Game implements Runnable {
 
     public boolean isPause() {
         return this.pause;
+    }
+
+    public void removeObstacle(Spot spot) {
+        obstacles.remove(spot);
     }
 }
 
