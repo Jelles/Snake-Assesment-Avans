@@ -125,7 +125,7 @@ public class Controller {
     public void bearSpot(Spot spot) {
         int snakeSize = game.getSnake().getBodyParts().size();
         double newSize = Double.valueOf(snakeSize / 2).intValue();
-        if (newSize < 7) {
+        if (newSize < 5) {
             viewEndGame();
         }
         double index = snakeSize - newSize;

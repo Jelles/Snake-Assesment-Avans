@@ -2,26 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8da34ff-4b54-4193-98af-47432c4bed06" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/Controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Controller/Controller.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/Controller/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Controller/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assesment/Model/BodyPart.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Model/BodyPart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assesment/Model/Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Model/Direction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/Model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Model/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/Model/Marker.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Model/Marker.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/Model/Snake.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/Model/Snake.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/View/DashBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/View/DashBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assesment/View/DrawPane.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/View/DrawPane.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assesment/View/GameScene.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assesment/View/GameScene.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/DashBoardTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/DashBoardTimer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Marker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Marker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Snake.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Spot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Spot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/DashBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/DashBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View/DrawPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/DrawPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/GameOverScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/GameOverScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/GameScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/GameScene.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,20 +36,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="156" column="93" selection-start-line="156" selection-start-column="93" selection-end-line="156" selection-end-column="93" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -176,7 +157,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559956165161" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559956230795" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -244,7 +225,8 @@
       <option name="presentableId" value="Default" />
       <updated>1559772146179</updated>
       <workItem from="1559772150465" duration="46251000" />
-      <workItem from="1559948815232" duration="7342000" />
+      <workItem from="1559948815232" duration="7414000" />
+      <workItem from="1560420442747" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="alot of shit">
       <created>1559775323554</created>
@@ -330,11 +312,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559915486327</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="finished">
+      <created>1559956175841</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1559956175841</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109783000" />
+    <option name="totallyTimeSpent" value="110454000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -347,14 +336,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="UI Designer" order="1" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25266525" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.2553305" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" />
@@ -426,7 +414,8 @@
     <MESSAGE value="added bodypart movement" />
     <MESSAGE value="broke the snake" />
     <MESSAGE value="fixed the snake and added a grow method with an interval in a thread" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the snake and added a grow method with an interval in a thread" />
+    <MESSAGE value="finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/View/BodyPartView.java" />

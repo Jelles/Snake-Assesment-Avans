@@ -8,132 +8,137 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game implements Runnable {
-    private Snake snake;
-    private boolean pause;
-    private Controller controller;
-    private DoubleProperty slideValue;
-    private DashBoardTimer dashBoardTimer;
-    private int delay;
-    private int delayCounter;
-    private int slideCounter;
-    private ArrayList<Spot> obstacles;
+	private Snake snake;
+	private boolean pause;
+	private Controller controller;
+	private DoubleProperty slideValue;
+	private DashBoardTimer dashBoardTimer;
+	private int delay;
+	private int delayCounter;
+	private ArrayList<Spot> obstacles;
 
-    public Game(Controller controller) {
-        this.controller = controller;
-        slideValue = new SimpleDoubleProperty(1);
-        obstacles = new ArrayList<Spot>();
-        snake = new Snake(15, 10, 4, controller);
-        dashBoardTimer = new DashBoardTimer();
-        pause = true;
-        delay = 650;
-        delayCounter = 0;
-        slideCounter = 0;
-        addRandomObstacle();
-    }
+	public Game(Controller controller) {
+		this.controller = controller;
+		slideValue = new SimpleDoubleProperty(1);
+		obstacles = new ArrayList<Spot>();
+		snake = new Snake(15, 10, 4, controller);
+		dashBoardTimer = new DashBoardTimer();
+		pause = true;
+		delay = 500;
+		delayCounter = 0;
+		addRandomObstacle();
+	}
 
-    /**
-     * Adds a random obstacle (Spot) on the canvas
-     */
-    public void addRandomObstacle() {
-        Random rnd = new Random();
-        int xPos = rnd.nextInt(19);
-        int yPos = rnd.nextInt(15);
-        Marker marker = Marker.randomMarker();
-        if (isPossiblePosition(xPos, yPos)) obstacles.add(new Spot(xPos, yPos, marker, controller));
-        else addRandomObstacle();
-    }
+	/**
+	 * Adds a random obstacle (Spot) on the canvas
+	 */
+	public void addRandomObstacle() {
+		Random rnd = new Random();
+		int xPos = rnd.nextInt(19);
+		int yPos = rnd.nextInt(15);
+		Marker marker = Marker.randomMarker();
+		if (isPossiblePosition(xPos, yPos))
+			obstacles.add(new Spot(xPos, yPos, marker, controller));
+		else
+			addRandomObstacle();
+	}
 
-    /**
-     * Checks if the given position has a snake, bodypart or an object
-     *
-     * @param xPos
-     * @param yPos
-     *
-     * @return
-     */
-    private boolean isPossiblePosition(int xPos, int yPos) {
-        if (xPos == snake.getxPos() && yPos == snake.getyPos()) return false;
-        for (Spot obstacle : obstacles)
-            if (xPos == obstacle.getxPos() && yPos == obstacle.getyPos()) return false;
-        for (BodyPart bodyPart : snake.getBodyParts())
-            if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos()) return false;
-        return true;
-    }
+	/**
+	 * Checks if the given position has a snake, bodypart or an object
+	 *
+	 * @param xPos
+	 * @param yPos
+	 *
+	 * @return
+	 */
+	private boolean isPossiblePosition(int xPos, int yPos) {
+		try {
+			if (xPos == snake.getxPos() && yPos == snake.getyPos())
+				return false;
+			for (Spot obstacle : obstacles)
+				if (xPos == obstacle.getxPos() && yPos == obstacle.getyPos())
+					return false;
+			for (BodyPart bodyPart : snake.getBodyParts())
+				if (xPos == bodyPart.getxPos() && yPos == bodyPart.getyPos())
+					return false;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
-    public ArrayList<Spot> getObstacles() {
-        return this.obstacles;
-    }
+	public ArrayList<Spot> getObstacles() {
+		return this.obstacles;
+	}
 
-    /**
-     * Main game loop
-     */
-    @Override
-    public void run() {
-        while (!pause) {
-            delayCounter++;
-            switch (snake.getDirection()) {
-                case UP:
-                    snake.moveUp();
-                    break;
-                case DOWN:
-                    snake.moveDown();
-                    break;
-                case LEFT:
-                    snake.moveLeft();
-                    break;
-                case RIGHT:
-                    snake.moveRight();
-                    break;
-            }
-            controller.draw();
-            if (!(delay <= 100)) {
-                delay -= 125 / delayCounter;
-                if (slideCounter == 4) {
-                    slideValue.set(slideValue.get() + 1);
-                    slideCounter = 0;
-                }
-                slideCounter++;
-            }
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	/**
+	 * Main game loop
+	 */
+	@Override
+	public void run() {
+		while (!pause) {
+			delayCounter++;
+			switch (snake.getDirection()) {
+			case UP:
+				snake.moveUp();
+				break;
+			case DOWN:
+				snake.moveDown();
+				break;
+			case LEFT:
+				snake.moveLeft();
+				break;
+			case RIGHT:
+				snake.moveRight();
+				break;
+			}
+			controller.draw();
+			if (delayCounter == 10) {
+				if (slideValue.get() != 12) {
+					delay = (int) (delay * 0.9);
+					slideValue.set(slideValue.get() + 1);
+					delayCounter = 0;
+				}
+			}
+			try {
+				Thread.sleep(delay);
+			} catch (InterruptedException e) {
+			}
+		}
 
-    public DashBoardTimer getDashBoardTimer() {
-        return dashBoardTimer;
-    }
+	}
 
-    public final DoubleProperty slideValueProperty() {
-        return slideValue;
-    }
+	public DashBoardTimer getDashBoardTimer() {
+		return dashBoardTimer;
+	}
 
-    /**
-     * Pauses the game
-     */
-    public void pause() {
-        this.pause = true;
-    }
+	public final DoubleProperty slideValueProperty() {
+		return slideValue;
+	}
 
-    /**
-     * Starts the game
-     */
-    public void start() {
-        this.pause = false;
-    }
+	/**
+	 * Pauses the game
+	 */
+	public void pause() {
+		this.pause = true;
+	}
 
-    public Snake getSnake() {
-        return this.snake;
-    }
+	/**
+	 * Starts the game
+	 */
+	public void start() {
+		this.pause = false;
+	}
 
-    public boolean isPause() {
-        return this.pause;
-    }
+	public Snake getSnake() {
+		return this.snake;
+	}
 
-    public void removeObstacle(Spot spot) {
-        obstacles.remove(spot);
-    }
+	public boolean isPause() {
+		return this.pause;
+	}
+
+	public void removeObstacle(Spot spot) {
+		obstacles.remove(spot);
+	}
 }
-
